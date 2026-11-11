@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101a20">
+  <title>Quiet Hours — a story about finding your way</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="app">
+    <section id="titleScreen" class="screen title-screen">
+      <div class="title-copy">
+        <p class="eyebrow">A FIRST-PERSON STORY · A WEEK IN NORTHSIDE</p>
+        <h1>Quiet<br><em>Hours</em></h1>
+        <p class="intro">Some things are hard to name. You don't have to figure them out all at once.</p>
+        <button id="beginBtn" class="primary">Begin your story <span>→</span></button>
+        <button id="continueBtn" class="text-button hidden">Continue saved story</button>
+        <p class="small-note">A gentle note: this story includes difficult topics. You can pause, skip, or leave at any time.</p>
+      </div>
+      <div class="title-art" aria-hidden="true"><div class="window"></div><div class="silhouette"></div><div class="rain"></div><span class="art-caption">NORTHSIDE · 6:42 AM</span></div>
+    </section>
+
+    <section id="setupScreen" class="screen setup-screen hidden">
+      <div class="setup-panel">
+        <p class="eyebrow">BEFORE WE BEGIN</p>
+        <h2>Your story, your terms.</h2>
+        <p class="setup-note">You are 15. These choices shape how some people address you and a few conversations—not who you are or what ending you deserve. You can leave anything unanswered.</p>
+        <div class="warning-box"><strong>Content note</strong><p>Themes include family conflict, bullying, depression, and difficult childhood memories. Identity-related stress may resonate for some players. Nothing is depicted graphically. You can soften or skip difficult passages now or during play.</p><label class="check-row"><input id="softMode" type="checkbox"> Soften references to self-harm and dysphoria</label></div>
+        <div class="setup-grid">
+          <label>What should people call you?<input id="playerName" maxlength="18" value="Alex" autocomplete="off"></label>
+          <label>Gender<select id="gender"><option value="nonbinary">Non-binary</option><option value="girl">Girl</option><option value="boy">Boy</option><option value="questioning">Questioning</option><option value="skip">Prefer not to say</option></select></label>
+          <label>Sexuality (optional)<select id="sexuality"><option value="skip">Prefer not to say</option><option value="straight">Straight</option><option value="gay">Gay</option><option value="lesbian">Lesbian</option><option value="bi">Bisexual</option><option value="pan">Pansexual</option><option value="ace">Asexual</option><option value="questioning">Questioning</option></select></label>
+          <label>Pronouns (optional)<select id="pronouns"><option value="they">they / them</option><option value="she">she / her</option><option value="he">he / him</option><option value="custom">name only</option></select></label>
+        </div>
+        <fieldset class="trans-choice"><legend>Would you like your character to be trans?</legend><p>This is entirely optional. Saying no will not limit the story or its endings.</p><label><input type="radio" name="trans" value="yes"> Yes</label><label><input type="radio" name="trans" value="no" checked> No</label><label><input type="radio" name="trans" value="unsure"> I'm not sure</label></fieldset>
+        <div class="setup-actions"><button id="backBtn" class="secondary">Back</button><button id="startGameBtn" class="primary">Start day one <span>→</span></button></div>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="screen game-screen hidden">
+      <header class="topbar"><div class="brand">QUIET <i>HOURS</i></div><div class="chapter-label"><span id="dayLabel">DAY 1</span><span class="divider">/</span><span id="timeLabel">BEFORE SCHOOL</span></div><div class="top-actions"><button id="journalBtn" title="Journal">Journal <kbd>J</kbd></button><button id="pauseBtn" title="Pause">Pause <kbd>Esc</kbd></button></div></header>
+      <div class="game-layout">
+        <section class="world-column">
+          <div class="location-line"><span class="location-dot"></span><span id="locationLabel">HOME · KITCHEN</span><span id="weatherLabel">LIGHT RAIN</span></div>
+          <div id="viewportWrap" class="viewport-wrap"><canvas id="world" width="960" height="540" aria-label="First person view of the game world"></canvas><div class="view-vignette"></div><div class="crosshair"><i></i><b></b></div><div id="interactionHint" class="interaction-hint hidden"><kbd>E</kbd> <span>Talk</span></div><div id="toast" class="toast hidden"></div>
+            <div class="mobile-controls"><button data-move="forward">↑</button><div><button data-move="left">←</button><button data-move="back">↓</button><button data-move="right">→</button></div></div>
+          </div>
+          <div class="controls-line"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> walk</span><span><kbd>←</kbd><kbd>→</kbd> look</span><span><kbd>E</kbd> interact</span><span>Find a way through. Take your time.</span></div>
+          <div class="world-footer"><div><strong id="objectiveTitle">A quiet morning</strong><p id="objectiveText">Check in with Mom before you leave.</p></div><button id="mapBtn" class="map-button">City map <span>⌖</span></button></div>
+        </section>
+        <aside class="side-panel">
+          <div class="profile-card"><div class="avatar" id="avatarInitial">A</div><div><strong id="profileName">Alex</strong><span>15 · NORTHSIDE HIGH</span></div><button id="settingsBtn" class="icon-button" title="Story settings">⚙</button></div>
+          <div class="meter-block"><div class="meter-title"><span>STEADINESS</span><span id="steadyValue">54</span></div><div class="meter"><i id="steadyBar"></i></div><p>Not a score. Just how grounded this moment feels.</p></div>
+          <div class="meter-block"><div class="meter-title"><span>ENERGY</span><span id="energyValue">62</span></div><div class="meter"><i id="energyBar" class="energy"></i></div><p>Rest and small comforts matter too.</p></div>
+          <div class="side-divider"></div>
+          <div class="objective-mini"><p class="eyebrow">TODAY'S THREAD</p><p id="threadText">A strange photograph has appeared in your backpack.</p></div>
+          <div class="memory-mini"><p class="eyebrow">FRAGMENTS FOUND</p><div id="fragmentCount" class="fragment-count">○ ○ ○ ○ ○ ○</div><p>Memories arrive at their own pace.</p></div>
+          <div class="side-bottom"><button id="supportBtn" class="support-button">Need a moment? <span>Grounding & support</span></button><button id="saveBtn" class="quiet-button">Save progress</button></div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <div id="dialogueModal" class="modal hidden" role="dialog" aria-modal="true"><div class="dialogue-card"><div class="dialogue-meta"><span id="speakerLabel">MOM</span><button class="icon-button close-modal" data-close="dialogueModal">×</button></div><div id="sceneTag" class="scene-tag hidden">A MEMORY FRAGMENT</div><h2 id="dialogueTitle">A quiet morning</h2><p id="dialogueText"></p><div id="choiceList" class="choice-list"></div><div id="dialogueFooter" class="dialogue-footer">Choose what feels right. There is no perfect answer.</div></div></div>
+  <div id="journalModal" class="modal hidden" role="dialog" aria-modal="true"><div class="utility-card"><div class="utility-head"><div><p class="eyebrow">YOUR PRIVATE NOTES</p><h2>Journal</h2></div><button class="icon-button close-modal" data-close="journalModal">×</button></div><div class="journal-tabs"><button class="active" data-tab="notes">Notes</button><button data-tab="memories">Fragments</button><button data-tab="people">People</button></div><div id="journalContent" class="journal-content"></div><div class="dialogue-footer">Saved on this device. Your notes are yours.</div></div></div>
+  <div id="mapModal" class="modal hidden" role="dialog" aria-modal="true"><div class="utility-card map-card"><div class="utility-head"><div><p class="eyebrow">NORTHSIDE DISTRICT</p><h2>A few places to go</h2></div><button class="icon-button close-modal" data-close="mapModal">×</button></div><div id="mapGrid" class="map-grid"></div><p class="map-tip">Walk to a doorway and press <kbd>E</kbd> to travel. New places open as the week unfolds.</p></div></div>
+  <div id="settingsModal" class="modal hidden" role="dialog" aria-modal="true"><div class="utility-card"><div class="utility-head"><div><p class="eyebrow">YOUR STORY, YOUR PACE</p><h2>Settings & safety</h2></div><button class="icon-button close-modal" data-close="settingsModal">×</button></div><div class="settings-content"><p>You can pause, leave, or soften content at any time. There are no penalties for taking a break.</p><label class="check-row"><input id="softModeLive" type="checkbox"> Soften difficult references</label><button id="resetBtn" class="danger-button">Start over (erase saved story)</button></div><button class="support-button settings-support" id="settingsSupport">Find grounding & support</button></div></div>
+  <div id="supportModal" class="modal hidden" role="dialog" aria-modal="true"><div class="utility-card"><div class="utility-head"><div><p class="eyebrow">YOU DESERVE SUPPORT</p><h2>Let's take a moment.</h2></div><button class="icon-button close-modal" data-close="supportModal">×</button></div><div class="support-content"><p class="support-lead">You don't have to solve everything right now. Try noticing one thing around you that feels steady.</p><div class="grounding-prompt"><span>5</span><p>things you can see</p></div><div class="grounding-prompt"><span>4</span><p>things you can feel (like your feet on the floor)</p></div><div class="grounding-prompt"><span>3</span><p>things you can hear</p></div><div class="support-box"><strong>If something here feels close to your own life</strong><p>Please tell a trusted adult, school counselor, or health professional. If you may be in immediate danger, contact local emergency services. In the U.S. or Canada, call or text <b>988</b> for the Suicide & Crisis Lifeline. Elsewhere, findahelpline.com can help locate local support.</p></div><button id="breathingBtn" class="primary">Start a 30-second breathing pause</button><div id="breathingStatus" class="breathing-status"></div></div></div></div>
+  <div id="endingModal" class="modal hidden" role="dialog" aria-modal="true"><div class="ending-card"><p class="eyebrow">THE END OF THIS CHAPTER</p><div id="endingSymbol" class="ending-symbol">✳</div><h2 id="endingTitle">A little more room</h2><p id="endingText"></p><div id="endingDetails" class="ending-details"></div><button id="restartEnding" class="primary">Return to the beginning</button><button id="endingClose" class="text-button">Stay with this moment</button></div></div>
+  <script src="game.js"></script>
+</body>
+</html>
